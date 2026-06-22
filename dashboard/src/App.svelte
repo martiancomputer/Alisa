@@ -104,7 +104,7 @@
             <div class="mt-2 text-xl font-bold text-neutral-400">&lt; 512 MB</div>
           </div>
         </div>
-      {:elseif currentTab === 'logging'}
+      {:else if currentTab === 'logging'}
         <header class="mb-6 flex justify-between items-center">
           <div>
             <h1 class="text-2xl font-bold text-white tracking-tight">LOGGING STREAM</h1>
@@ -128,7 +128,7 @@
                 <tr>
                   <td colspan="4" class="p-4 text-center text-neutral-500">Acquiring stream buffer sequence...</td>
                 </tr>
-              {:elseif auditLogs.length === 0}
+              {:else if auditLogs.length === 0}
                 <tr>
                   <td colspan="4" class="p-4 text-center text-neutral-500">No telemetry payloads registered in current trace index.</td>
                 </tr>
