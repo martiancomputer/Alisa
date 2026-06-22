@@ -1,25 +1,31 @@
-name: Deploy Alisa to AWS EC2
+name: Deploy Alisa Monolith
 
 on:
   push:
-    branches:
-      - main
+    branches: [ main ]
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout Repository
+      - name: Checkout Source Code
         uses: actions/checkout@v4
 
+      # Connect to your private Tailscale network
+      - name: Connect to Tailscale Wireguard Mesh
+        uses: tailscale/github-action@v2
+        with:
+          oauth-secret: ${{ secrets.TAILSCALE_AUTH_KEY }}
+
+      # Execute your existing SSH deployment over the secure internal connection
       - name: Execute Remote SSH Deployment
         uses: appleboy/ssh-action@v1.0.3
         with:
-          host: ${{ secrets.EC2_HOST }}
+          host: ${{ secrets.EC2_HOST }} # Change this secret to your internal Tailscale MagicDNS or 100.X.X.X IP
           username: ${{ secrets.EC2_USER }}
           key: ${{ secrets.EC2_SSH_KEY }}
           script: |
-            cd /opt/alisa
+            cd /home/admin/Alisa
             git pull origin main
             make build
             sudo systemctl restart alisa.service
