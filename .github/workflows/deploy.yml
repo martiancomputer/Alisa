@@ -27,5 +27,6 @@ jobs:
           script: |
             cd /home/admin/Alisa
             git pull origin main
+            echo "BOT_TOKEN=${{ secrets.BOT_TOKEN }}" > .env
             make build
             sudo systemctl restart alisa.service
