@@ -11,19 +11,25 @@ jobs:
       - name: Checkout Source Code
         uses: actions/checkout@v4
 
-      # Connect to your private Tailscale network
+      # 1. Connect to private Tailscale network using the Reusable + Ephemeral Auth Key
+      - name: Connect to Tailscale Wireguard Mesh
+        uses: tailscale/github-action@v2
+        with:
+          authkey: ${{ secrets.TAILSCALE_AUTH_KEY }}
+
+      # 2. Execute Deployment over private Wireguard tunnel
       - name: Execute Remote SSH Deployment
         uses: appleboy/ssh-action@v1.0.3
         with:
-          host: ${{ secrets.EC2_HOST }}
+          host: ${{ secrets.EC2_HOST }}        # Must be the 100.X.X.X Tailscale IP
           username: ${{ secrets.EC2_USER }}
           key: ${{ secrets.EC2_SSH_KEY }}
-          envs: BOT_TOKEN
+          envs: BOT_TOKEN                      # Contextual pass-through from GitHub Secrets
           script: |
             cd /home/admin/Alisa
             git pull origin main
             
-            # Inject or overwrite the local environment runtime file
+            # Inject production environment token
             echo "BOT_TOKEN=${BOT_TOKEN}" > .env
             
             make build
