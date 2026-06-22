@@ -57,10 +57,10 @@ func main() {
 	dgSession.AddHandler(msgHandler.OnMessageCreate)
 
 	// Configure network constraints to intercept exact operational flows
-	dgSession.Identify.Intents = discordgo.IntentsGuilds |
-		discordgo.IntentsGuildMessages |
-		discordgo.IntentsGuildMembers |
-		discordgo.IntentsGuildModeration
+	dgSession.Identify.Intents = discordgo.IntentGuilds |
+		discordgo.IntentGuildMessages |
+		discordgo.IntentGuildMembers |
+		discordgo.IntentGuildModeration
 
 	if err := dgSession.Open(); err != nil {
 		log.Fatalf("CRITICAL: Failed to tie Discord Gateway socket link: %v", err)
