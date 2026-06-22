@@ -15,7 +15,7 @@ jobs:
       - name: Connect to Tailscale Wireguard Mesh
         uses: tailscale/github-action@v2
         with:
-          oauth-secret: ${{ secrets.TAILSCALE_AUTH_KEY }}
+          authkey: ${{ secrets.TAILSCALE_AUTH_KEY }}
 
       # Execute your existing SSH deployment over the secure internal connection
       - name: Execute Remote SSH Deployment
