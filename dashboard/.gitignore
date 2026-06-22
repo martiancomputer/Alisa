@@ -2,3 +2,5 @@ node_modules/
 dist/
 .svelte-kit/
 .env
+bin/
+cmd/alisa/dashboard/dist/
