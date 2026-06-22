@@ -10,6 +10,7 @@ import (
 	"syscall"
 
 	"github.com/bwmarrin/discordgo"
+	"github.com/martiancomputer/Alisa/internal/models"
 	"github.com/martiancomputer/Alisa/internal/api"
 	"github.com/martiancomputer/Alisa/internal/automation"
 	"github.com/martiancomputer/Alisa/internal/bot/handlers"
