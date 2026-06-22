@@ -11,8 +11,7 @@ generate:
 
 build: generate
 	@echo "Compiling Alisa Go binary (CGO enabled for SQLite WAL)..."
-	CGO_ENABLED=1 GOOS=linux GOARCH=arm64 go build -ldflags="-w -s" -o $(BUILD_DIR)/$(BINARY_NAME) ./cmd/alisa
-
+	CGO_ENABLED=1 GOOS=linux GOARCH=amd64 go build -ldflags="-w -s" -o bin/alisa ./cmd/alisa
 run:
 	@echo "Executing application..."
 	go run ./cmd/alisa/main.go
